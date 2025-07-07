@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Villa Simurg – Luxe Résidence</title>
+  <meta name="description" content="Villa d'exception à Kusadasi. Découvrez notre propriété premium avec piscine privée et vue mer.">
+
+  <!-- Cache-control -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Stijl -->
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      min-height: 600px;
+    }
+
+    .bovenste-rij {
+      flex: 6;
+      display: flex;
+      background-image: url("https://www.transparenttextures.com/patterns/arches.png");
+      background-color: #000080;
+    }
+    
+    .onderste-rij {
+      flex: 4;
+      background-image: url("https://www.transparenttextures.com/patterns/arches.png");
+      background-color: #d9e1f9;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .kolom-links {
+      flex: 2;
+      padding: 20px;
+      color: #D4AF37;
+    }
+
+    .kolom-rechts {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .kolom-rechts ul {
+      margin-top: 1em;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .kolom-rechts a {
+      color: #5DA2D5 !important;
+      text-decoration: none;
+      font-size: 1.1em;
+      transition: all 0.3s;
+    }
+
+    .kolom-rechts a:hover {
+      text-shadow: 0 0 8px rgba(255, 80, 54, 0.6);
+    }
+
+    .kolom-rechts i {
+      color: #5DA2D5 !important;
+      font-size: 1.2em;
+      margin-right: 8px;
+    }
+
+    img.hero {
+      max-height: 90%;
+      max-width: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .bovenste-rij {
+        flex-direction: column;
+      }
+      .kolom-links, .kolom-rechts {
+        flex: none;
+        padding: 15px;
+      }
+      .container {
+        min-height: 100vh;
+        height: auto;
+      }
+    }
+
+    .contact-icons a {
+      font-size: 24px;
+      transition: transform 0.3s;
+    }
+
+    .contact-icons a:hover {
+      transform: scale(1.15);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="bovenste-rij">
+      <div class="kolom-links">
+        <h3 id="welkomstekst">Bienvenue</h3>
+        <h1 id="villaNaam">Villa Simurg</h1>
+      </div>
+	  
+      <div class="kolom-rechts">
+        <ul>
+          <li><a href="#" id="linkEigendom" onclick="toonBeschrijving(); return false;">La propriété</a></li>
+          <li><a href="#" id="linkFotos">Photos</a></li>
+          <li><a href="#" id="linkVideos">Vidéos</a></li>
+          <li><a href="index.html" id="linkAccueil">Accueil</a></li>
+          <li style="margin-top: 20px;" class="contact-icons">
+            <a href="tel:+32477227772"><i class="fas fa-phone"></i></a>
+            <a href="mailto:simurgkusadasi@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="#" onclick="openWhatsApp(); return false;"><i class="fab fa-whatsapp"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="onderste-rij" id="ondervlak">
+      <img src="foto/12.jpeg" alt="Villa Simurg bij nacht" class="hero" loading="lazy">
+    </div>
+  </div>
+
+  <!-- Script -->
+  
+    
+
+  
+  
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const taalcode = params.get("lang") || "fr";
+
+    // Dynamische vertaling
+    fetch(`taal/${taalcode}.json?v=${Date.now()}`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("welkomstekst").textContent = data.welkom;
+        document.getElementById("villaNaam").textContent = data.villa;
+        document.getElementById("linkEigendom").textContent = data.propriete;
+        document.getElementById("linkFotos").textContent = data.foto;
+        document.getElementById("linkVideos").textContent = data.videos;
+        document.getElementById("linkAccueil").textContent = data.accueil || "Start";
+
+        // Links met taalparameter
+        document.getElementById("linkFotos").href = `foto.html?lang=${taalcode}`;
+        document.getElementById("linkVideos").href = `videos.html?lang=${taalcode}`;
+      })
+      .catch(error => {
+        console.error("Vertalingsfout:", error);
+      });
+
+
+  function toonPrijs() {
+  
+    fetch("taal/dataprijs.json")
+      .then(response => response.json())
+      .then(data => {
+        const prijsveld = document.getElementById("prijsveld");
+        if (prijsveld) {
+          prijsveld.textContent = data.prijs;
+        }
+      })
+      .catch(error => {
+        console.error("Fout bij laden van prijs:", error);
+      });
+  }
+
+
+
+
+
+function toonBeschrijving() {
+  fetch(`${taalcode}.html?v=${Date.now()}`)
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("ondervlak").innerHTML = `<div class='content'>${html}</div>`;
+      toonPrijs(); // prijs ophalen ná het laden van de HTML
+    })
+    .catch(error => {
+      console.error("Beschrijving laden mislukt:", error);
+      document.getElementById("ondervlak").innerHTML = `
+        <p style="color: #D4AF37; font-size: 1.5em;">
+          Description non disponible
+        </p>
+      `;
+    });
+}
+
+
+
+
+
+   
+    function openWhatsApp() {
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const url = isMobile
+        ? 'whatsapp://send?phone=905445342987'
+        : 'https://wa.me/905445342987';
+      window.open(url, '_blank');
+    }
+  </script>
+  
+
+
+  
+</body>
+</html>

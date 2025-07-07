@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Villa Simurg Kusadasi - Villa de Luxe avec Piscine Privée | Location Premium</title>
+  <meta name="description" content="Villa Simurg à Kusadasi - Villa de luxe avec piscine privée et vue mer. Location premium pour vacances d'exception en Turquie. Réservez votre séjour exclusif.">
+  <meta name="keywords" content="villa kusadasi, villa luxe turquie, location villa piscine privée, villa vue mer, séjour premium kusadasi">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://villasimurg.com">
+  
+  <!-- Open Graph pour réseaux sociaux -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Villa Simurg - Villa de Luxe à Kusadasi">
+  <meta property="og:description" content="Villa d'exception avec piscine privée et vue mer à Kusadasi">
+  <meta property="og:image" content="https://dl.dropboxusercontent.com/scl/fi/x5zzb3rgxl1ud63a49q81/001.jpeg?rlkey=qlfjz2yegg4i4uvh2oday6ytb">
+  <meta property="og:url" content="https://villasimurg.com">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Villa Simurg - Villa de Luxe à Kusadasi">
+  <meta name="twitter:description" content="Villa d'exception avec piscine privée et vue mer">
+  <meta name="twitter:image" content="https://dl.dropboxusercontent.com/scl/fi/x5zzb3rgxl1ud63a49q81/001.jpeg?rlkey=qlfjz2yegg4i4uvh2oday6ytb">
+
+  <!-- 🎨 Kleurstijl -->
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      min-height: 600px;
+    }
+    
+    .bovenste-rij {
+      flex: 6;
+      display: flex;
+      background-image: url("https://www.transparenttextures.com/patterns/arches.png");
+      background-color: #000080;
+    }
+    
+    .onderste-rij {
+      flex: 4;
+      background-image: url("https://www.transparenttextures.com/patterns/arches.png");
+      background-color: #d9e1f9;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .kolom-links {
+      flex: 2;
+      padding: 20px;
+      color: #D4AF37; /* Gouden tekst */
+    }
+    
+    .kolom-rechts {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    
+    /* Nieuwe styling voor twee kolommen taallinks */
+    .taal-links {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 0px 10px;
+      margin-bottom: 15px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .taal-links a {
+      color: #5DA2D5 !important;
+      text-decoration: none;
+      font-size: 1.1em;
+      transition: all 0.3s;
+      padding: 0px 4px;
+      border-radius: 2px;
+      display: block;
+      text-align: left;
+      line-height: 1.1;
+    }
+    .taal-links a:nth-child(6) {
+      text-align: right;
+    
+    }
+    
+    .taal-links a:hover {
+      text-shadow: 0 0 8px rgba(255, 80, 54, 0.6);
+      background-color: rgba(93, 162, 213, 0.1);
+    }
+    
+    /* Contact iconen styling */
+    .contact-icons {
+      display: flex;
+      gap: 5px;
+      justify-content: flex-start;
+      margin-top: 5px;
+    }
+    
+    .contact-icons a {
+      color: #5DA2D5 !important;
+      font-size: 1.2em;
+      transition: transform 0.3s;
+      text-decoration: none;
+    }
+    
+    .contact-icons a:hover {
+      transform: scale(1.15);
+      text-shadow: 0 0 8px rgba(255, 80, 54, 0.6);
+    }
+    
+    img.hero {
+      max-height: 90%;
+      max-width: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    
+    /* Fallback icoon als afbeelding niet laadt */
+    .image-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      --show-icon: 0;
+    }
+    
+    .image-container::before {
+      font-family: "Font Awesome 6 Free";
+      content: "\f015"; /* fa-home */
+      font-weight: 900;
+      font-size: 3em;
+      color: #5DA2D5;
+      position: absolute;
+      z-index: 1;
+      opacity: var(--show-icon);
+      transition: opacity 0.3s;
+    }
+    
+    /* Mobiele optimalisatie */
+    @media (max-width: 768px) {
+      .bovenste-rij {
+        flex-direction: column;
+      }
+      .kolom-links, .kolom-rechts {
+        flex: none;
+        padding: 15px;
+      }
+      .container {
+        min-height: 100vh;
+        height: auto;
+      }
+      .taal-links {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+  </style>
+  
+  <!-- 📱 WhatsApp script -->
+  <script>
+    function openWhatsApp() {
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const url = isMobile ? 'whatsapp://send?phone=905445342987' : 'https://wa.me/905445342987';
+      window.open(url, '_blank');
+    }
+  </script>
+  
+  <!-- 📚 Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "name": "Villa Simurg",
+    "description": "Villa de luxe avec piscine privée et vue mer à Kusadasi",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kusadasi",
+      "addressCountry": "TR"
+    },
+    "telephone": "+905445342987",
+    "email": "simurgkusadasi@gmail.com",
+    "url": "https://villasimurg.com",
+    "image": "https://dl.dropboxusercontent.com/scl/fi/x5zzb3rgxl1ud63a49q81/001.jpeg?rlkey=qlfjz2yegg4i4uvh2oday6ytb",
+    "amenityFeature": [
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Piscine privée"
+      },
+      {
+        "@type": "LocationFeatureSpecification", 
+        "name": "Vue mer"
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="bovenste-rij">
+      <div class="kolom-links">
+        <h1>Villa Simurg</h1>
+        <h2>فيلا سيمورج</h2>
+      </div>
+      <div class="kolom-rechts">
+        <div class="taal-links">
+          <a href="indexneutraal.html?lang=en">English</a>
+		  <a href="indexneutraal.html?lang=ru">Русский</a>
+          <a href="indexneutraal.html?lang=de">Deutsch</a>
+		  <a href="indexneutraal.html?lang=nl">Nederlands</a>
+          <a href="indexneutraal.html?lang=fr">Français</a>
+          <a href="indexneutraal.html?lang=ar">العربية</a>
+          <a href="indexneutraal.html?lang=tk">Türkçe</a>
+        </div>
+        
+        <div class="contact-icons">
+          <a href="tel:+905445342987" title="Bel ons"><i class="fas fa-phone"></i></a>
+          <a href="mailto:simurgkusadasi@gmail.com" title="Email ons"><i class="fas fa-envelope"></i></a>
+          <a href="#" onclick="openWhatsApp(); return false;" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="onderste-rij" id="ondervlak">
+      <div class="image-container">
+        <img src="https://dl.dropboxusercontent.com/scl/fi/x5zzb3rgxl1ud63a49q81/001.jpeg?rlkey=qlfjz2yegg4i4uvh2oday6ytb" 
+             alt="Villa Simurg Kusadasi - Villa de luxe avec piscine privée et vue mer" 
+             class="hero" 
+             loading="lazy"
+             onerror="this.style.display='none'; this.parentElement.style.setProperty('--show-icon', '1');">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

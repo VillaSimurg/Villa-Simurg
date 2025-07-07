@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Photos – Villa Simurg</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    .bovenbalk {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-image: url('https://www.transparenttextures.com/patterns/black-linen.png');
+      background-color: #000080;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10000;
+    }
+
+    .knop {
+      font-size: 1.8em;
+      color: #5DA2D5;
+      background: none;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 6px;
+      transition: color 0.3s, background-color 0.3s;
+    }
+
+    .knop:hover,
+    .knop:focus {
+      color: #FFD700;
+      background-color: rgba(255, 255, 255, 0.1);
+      outline: none;
+    }
+
+    #lightbox-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #lightbox-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: none;
+    }
+    
+    #lightbox-img.loaded {
+      display: block;
+    }
+    
+    /* Volledig verberg alt-tekst en broken icon */
+    #lightbox-img[alt] { 
+      color: transparent;
+      font-size: 0;
+      text-indent: -9999px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bovenbalk">
+    <button class="knop" aria-label="Vorige" id="vorige-knop">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <a id="home-knop" href="indexneutraal.html" class="knop" aria-label="Accueil">
+      <i class="fas fa-home"></i>
+    </a>
+    <button class="knop" aria-label="Volgende" id="volgende-knop">
+      <i class="fas fa-arrow-right"></i>
+    </button>
+  </div>
+
+  <div id="lightbox-container">
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+
+
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const fotos = [
+      "https://dl.dropboxusercontent.com/scl/fi/x5zzb3rgxl1ud63a49q81/001.jpeg?rlkey=qlfjz2yegg4i4uvh2oday6ytb",
+      "https://dl.dropboxusercontent.com/scl/fi/ep707jh75o3ozr66khk3w/simurg-03.jpeg?rlkey=vbm7dmsulc5lvqpdc8whfayhk",
+      "https://dl.dropboxusercontent.com/scl/fi/uk4unhksb16dydjyas9im/simurg-04.jpeg?rlkey=6vqogju2b0svpmgmn7hdpupi1",
+      "https://dl.dropboxusercontent.com/scl/fi/do1pto2jerogy99nkq33p/Simurg-05.jpeg?rlkey=efta2nkfyixiv86ic9x2zy37f",
+      "https://dl.dropboxusercontent.com/scl/fi/ho0fhpcdfnaul2083pige/simurg-06.jpeg?rlkey=174gx8qxx7viw0dwbb2kbiorm",
+      "https://dl.dropboxusercontent.com/scl/fi/041rpjgaymtmnvqww1m7d/07.jpeg?rlkey=dvofw9gd5q8p6g2g8uc23k96q",  
+      "https://dl.dropboxusercontent.com/scl/fi/osvvljg3pvk50x7oqxn04/simurg-08.jpeg?rlkey=1hq97eanpzckde4s1l1xp4ksg",
+      "https://dl.dropboxusercontent.com/scl/fi/2bcm4qx9vssg0crxfjqon/simurg-09.jpeg?rlkey=i79pebnvlao1j66geopuwiy4n",
+      "https://dl.dropboxusercontent.com/scl/fi/2ntzkljw1tr9hkad4bny6/simurg-10.jpeg?rlkey=ueh1nvph92y503emd3oticr0f",
+      "https://dl.dropboxusercontent.com/scl/fi/blonvez0tou16unhpexvo/simurg-11.jpeg?rlkey=suhcquxodfng3j0cni5dtheos",
+      "https://dl.dropboxusercontent.com/scl/fi/sl19m2842ic9tpazv2mfe/simurg-12.jpeg?rlkey=rlr2tbjn9kl06co2kmkrxah6n",
+      "https://dl.dropboxusercontent.com/scl/fi/xrqdpkjw3s5fm6mcozf89/Simurg-13.jpeg?rlkey=d06y6vevs1hneexecs7qjmz6o",
+      "https://dl.dropboxusercontent.com/scl/fi/20y1kox6hi3ig0utwlyek/simurg-14.jpeg?rlkey=jm1gebe4z2o08rwwk4svl9c7v",
+      "https://dl.dropboxusercontent.com/scl/fi/x1wjy5hagxds9acmr488x/simurg-15.jpeg?rlkey=cpqtl8jofrqnflmqmzuf2bt7w",
+      "https://dl.dropboxusercontent.com/scl/fi/r37s0a0u5yok0uhv0gc8i/simurg-16.jpeg?rlkey=7a8jtfhcvo5931u9diwgakcf2",
+      "https://dl.dropboxusercontent.com/scl/fi/c454doyufw3ber86tu68v/simurg-17.jpeg?rlkey=6u5ayzw79rvt4894btvjvsbyn",
+      "https://dl.dropboxusercontent.com/scl/fi/mff75y7t2mvb3x8kaz5pv/simurg-18.jpeg?rlkey=zf1q0rwu7l4vfxz2n8f0bzzrs",
+      "https://dl.dropboxusercontent.com/scl/fi/emopgn9jlqp4ri0tt2qb9/simurg-19.jpeg?rlkey=1wezm4ijjk0qyzr8knj2712w9",
+      "https://dl.dropboxusercontent.com/scl/fi/u788hbsdmb48vlgudr24d/Simurg-20.jpeg?rlkey=bvmrmp3i0i8lamla6apd6nyko",
+      "https://dl.dropboxusercontent.com/scl/fi/xzgktog07px2wboe89gub/simurg-21.jpeg?rlkey=29q1wzwq46i9pcth2zgaexc77",
+      "https://dl.dropboxusercontent.com/scl/fi/2h2kdiyqeos1kmet2h26c/Simurg-22.jpeg?rlkey=6eb4htijn566402wiq3yfhufm",
+      "https://dl.dropboxusercontent.com/scl/fi/lxksjlyn02976y8uqchc3/Simurg-23.jpeg?rlkey=ucxk5ohscud8ez54jyd1t7fe8",
+      "https://dl.dropboxusercontent.com/scl/fi/ehgwm1tj7ds8pq97hxqqd/Simurg-24.jpeg?rlkey=t5p6nxqmiezkelgyotkpy4a4s",
+      "https://dl.dropboxusercontent.com/scl/fi/uwldwg6e6wheywghjk8jh/Simurg-25.jpeg?rlkey=rv47nr2njbrutzqo12tndipsf",
+	  "https://dl.dropboxusercontent.com/scl/fi/o4jrwl8e12vi7lx5auwx0/vid02.mp4?rlkey=ftbxkm4sz64w04t9m0es7ljub",
+      "https://dl.dropboxusercontent.com/scl/fi/nygloq70jw0ee0ozimgiu/Simurg-26.jpeg?rlkey=wcqtdiftaknnqck1g4f3op3gg"
+    ];
+
+    let huidige = 0;
+    const lightboxImg = document.getElementById("lightbox-img");
+
+    // Functies
+    function updateImage() {
+      lightboxImg.classList.remove('loaded');
+      lightboxImg.src = fotos[huidige];
+      
+      lightboxImg.onload = function() {
+        lightboxImg.classList.add('loaded');
+      };
+    }
+
+    function changeSlide(richting) {
+      huidige = (huidige + richting + fotos.length) % fotos.length;
+      updateImage();
+    }
+
+    // Event listeners
+    document.getElementById("vorige-knop").addEventListener('click', function(e) {
+      e.preventDefault();
+      changeSlide(-1);
+    });
+
+    document.getElementById("volgende-knop").addEventListener('click', function(e) {
+      e.preventDefault();
+      changeSlide(1);
+    });
+
+    // Toetsenbordbediening
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+      if (e.key === 'ArrowRight') changeSlide(1);
+    });
+
+    // Touch events voor swipe
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, {passive: true});
+
+    document.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) changeSlide(1);
+        else changeSlide(-1);
+      }
+    }, {passive: true});
+
+    // Initialisatie
+    updateImage();
+  </script>
+</body>
+</html>
