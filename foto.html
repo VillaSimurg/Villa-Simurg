@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Photos – Villa Simurg</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
     html, body {
       margin: 0;
@@ -15,7 +14,6 @@
       overflow: hidden;
       font-family: sans-serif;
     }
-
     .bovenbalk {
       position: fixed;
       top: 0;
@@ -30,7 +28,6 @@
       padding: 0 20px;
       z-index: 10000;
     }
-
     .knop {
       font-size: 1.8em;
       color: #5DA2D5;
@@ -47,14 +44,12 @@
       border-radius: 6px;
       transition: color 0.3s, background-color 0.3s;
     }
-
     .knop:hover,
     .knop:focus {
       color: #FFD700;
       background-color: rgba(255, 255, 255, 0.1);
       outline: none;
     }
-
     #lightbox-container {
       position: fixed;
       top: 0;
@@ -65,19 +60,15 @@
       justify-content: center;
       align-items: center;
     }
-    
     #lightbox-img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
       display: none;
     }
-    
     #lightbox-img.loaded {
       display: block;
     }
-    
-    /* Volledig verberg alt-tekst en broken icon */
     #lightbox-img[alt] { 
       color: transparent;
       font-size: 0;
@@ -86,7 +77,6 @@
   </style>
 </head>
 <body>
-
   <div class="bovenbalk">
     <button class="knop" aria-label="Vorige" id="vorige-knop">
       <i class="fas fa-arrow-left"></i>
@@ -98,17 +88,11 @@
       <i class="fas fa-arrow-right"></i>
     </button>
   </div>
-
   <div id="lightbox-container">
     <img id="lightbox-img" src="" alt="">
   </div>
-
-
-
-
   <script>
     const params = new URLSearchParams(window.location.search);
-
     const fotos = [
       "https://dl.dropboxusercontent.com/scl/fi/x5zzb3rgxl1ud63a49q81/001.jpeg?rlkey=qlfjz2yegg4i4uvh2oday6ytb",
       "https://dl.dropboxusercontent.com/scl/fi/ep707jh75o3ozr66khk3w/simurg-03.jpeg?rlkey=vbm7dmsulc5lvqpdc8whfayhk",
@@ -137,48 +121,35 @@
 	  "https://dl.dropboxusercontent.com/scl/fi/o4jrwl8e12vi7lx5auwx0/vid02.mp4?rlkey=ftbxkm4sz64w04t9m0es7ljub",
       "https://dl.dropboxusercontent.com/scl/fi/nygloq70jw0ee0ozimgiu/Simurg-26.jpeg?rlkey=wcqtdiftaknnqck1g4f3op3gg"
     ];
-
     let huidige = 0;
     const lightboxImg = document.getElementById("lightbox-img");
-
-    // Functies
     function updateImage() {
       lightboxImg.classList.remove('loaded');
       lightboxImg.src = fotos[huidige];
-      
       lightboxImg.onload = function() {
         lightboxImg.classList.add('loaded');
       };
     }
-
     function changeSlide(richting) {
       huidige = (huidige + richting + fotos.length) % fotos.length;
       updateImage();
     }
-
-    // Event listeners
     document.getElementById("vorige-knop").addEventListener('click', function(e) {
       e.preventDefault();
       changeSlide(-1);
     });
-
     document.getElementById("volgende-knop").addEventListener('click', function(e) {
       e.preventDefault();
       changeSlide(1);
     });
-
-    // Toetsenbordbediening
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') changeSlide(-1);
       if (e.key === 'ArrowRight') changeSlide(1);
     });
-
-    // Touch events voor swipe
     let touchStartX = 0;
     document.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
     }, {passive: true});
-
     document.addEventListener('touchend', (e) => {
       const touchEndX = e.changedTouches[0].clientX;
       const diff = touchStartX - touchEndX;
@@ -187,9 +158,10 @@
         else changeSlide(-1);
       }
     }, {passive: true});
-
-    // Initialisatie
     updateImage();
+    const homeKnop = document.getElementById("home-knop");
+    const lang = params.get("lang") || "fr";
+    homeKnop.href = `indexneutraal.html?lang=${lang}`;
   </script>
 </body>
 </html>
