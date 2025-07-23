@@ -148,7 +148,7 @@
       });
 
     function toonPrijs() {
-      fetch("taal/dataprijs.json")
+      fetch(`taal/dataprijs.json?v=${Date.now()}`)
         .then(response => response.json())
         .then(data => {
           const prijsveld = document.getElementById("prijsveld");
