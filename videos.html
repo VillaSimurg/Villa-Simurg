@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -124,10 +125,12 @@
     const lang = new URLSearchParams(window.location.search).get("lang") || "fr";
     homeBtn.href = `indexneutraal.html?lang=${lang}`;
     function loadVideo(index) {
-      const source = video.querySelector("source");
-      source.src = videoList[index];
-      video.load();
-    }
+  const source = video.querySelector("source");
+  source.src = videoList[index];
+  video.load();
+  overlay.style.display = "flex"; // <== dit toont opnieuw de overlay
+}
+
     document.getElementById("prev-btn").addEventListener("click", e => {
       e.preventDefault();
       currentIndex = (currentIndex - 1 + videoList.length) % videoList.length;
