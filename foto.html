@@ -91,6 +91,109 @@
   <div id="lightbox-container">
     <img id="lightbox-img" src="" alt="">
   </div>
+  
+  
+  
+  <script>
+  const params = new URLSearchParams(window.location.search);
+  const fotos = [
+      "https://dl.dropboxusercontent.com/scl/fi/x5zzb3rgxl1ud63a49q81/001.jpeg?rlkey=qlfjz2yegg4i4uvh2oday6ytb",
+      "https://dl.dropboxusercontent.com/scl/fi/ep707jh75o3ozr66khk3w/simurg-03.jpeg?rlkey=vbm7dmsulc5lvqpdc8whfayhk",
+      "https://dl.dropboxusercontent.com/scl/fi/uk4unhksb16dydjyas9im/simurg-04.jpeg?rlkey=6vqogju2b0svpmgmn7hdpupi1",
+      "https://dl.dropboxusercontent.com/scl/fi/do1pto2jerogy99nkq33p/Simurg-05.jpeg?rlkey=efta2nkfyixiv86ic9x2zy37f",
+      "https://dl.dropboxusercontent.com/scl/fi/ho0fhpcdfnaul2083pige/simurg-06.jpeg?rlkey=174gx8qxx7viw0dwbb2kbiorm",
+      "https://dl.dropboxusercontent.com/scl/fi/041rpjgaymtmnvqww1m7d/07.jpeg?rlkey=dvofw9gd5q8p6g2g8uc23k96q",  
+      "https://dl.dropboxusercontent.com/scl/fi/osvvljg3pvk50x7oqxn04/simurg-08.jpeg?rlkey=1hq97eanpzckde4s1l1xp4ksg",
+      "https://dl.dropboxusercontent.com/scl/fi/2bcm4qx9vssg0crxfjqon/simurg-09.jpeg?rlkey=i79pebnvlao1j66geopuwiy4n",
+      "https://dl.dropboxusercontent.com/scl/fi/2ntzkljw1tr9hkad4bny6/simurg-10.jpeg?rlkey=ueh1nvph92y503emd3oticr0f",
+      "https://dl.dropboxusercontent.com/scl/fi/blonvez0tou16unhpexvo/simurg-11.jpeg?rlkey=suhcquxodfng3j0cni5dtheos",
+      "https://dl.dropboxusercontent.com/scl/fi/sl19m2842ic9tpazv2mfe/simurg-12.jpeg?rlkey=rlr2tbjn9kl06co2kmkrxah6n",
+      "https://dl.dropboxusercontent.com/scl/fi/xrqdpkjw3s5fm6mcozf89/Simurg-13.jpeg?rlkey=d06y6vevs1hneexecs7qjmz6o",
+      "https://dl.dropboxusercontent.com/scl/fi/20y1kox6hi3ig0utwlyek/simurg-14.jpeg?rlkey=jm1gebe4z2o08rwwk4svl9c7v",
+      "https://dl.dropboxusercontent.com/scl/fi/x1wjy5hagxds9acmr488x/simurg-15.jpeg?rlkey=cpqtl8jofrqnflmqmzuf2bt7w",
+      "https://dl.dropboxusercontent.com/scl/fi/r37s0a0u5yok0uhv0gc8i/simurg-16.jpeg?rlkey=7a8jtfhcvo5931u9diwgakcf2",
+      "https://dl.dropboxusercontent.com/scl/fi/c454doyufw3ber86tu68v/simurg-17.jpeg?rlkey=6u5ayzw79rvt4894btvjvsbyn",
+      "https://dl.dropboxusercontent.com/scl/fi/mff75y7t2mvb3x8kaz5pv/simurg-18.jpeg?rlkey=zf1q0rwu7l4vfxz2n8f0bzzrs",
+      "https://dl.dropboxusercontent.com/scl/fi/emopgn9jlqp4ri0tt2qb9/simurg-19.jpeg?rlkey=1wezm4ijjk0qyzr8knj2712w9",
+      "https://dl.dropboxusercontent.com/scl/fi/u788hbsdmb48vlgudr24d/Simurg-20.jpeg?rlkey=bvmrmp3i0i8lamla6apd6nyko",
+      "https://dl.dropboxusercontent.com/scl/fi/xzgktog07px2wboe89gub/simurg-21.jpeg?rlkey=29q1wzwq46i9pcth2zgaexc77",
+      "https://dl.dropboxusercontent.com/scl/fi/2h2kdiyqeos1kmet2h26c/Simurg-22.jpeg?rlkey=6eb4htijn566402wiq3yfhufm",
+      "https://dl.dropboxusercontent.com/scl/fi/lxksjlyn02976y8uqchc3/Simurg-23.jpeg?rlkey=ucxk5ohscud8ez54jyd1t7fe8",
+      "https://dl.dropboxusercontent.com/scl/fi/ehgwm1tj7ds8pq97hxqqd/Simurg-24.jpeg?rlkey=t5p6nxqmiezkelgyotkpy4a4s",
+      "https://dl.dropboxusercontent.com/scl/fi/uwldwg6e6wheywghjk8jh/Simurg-25.jpeg?rlkey=rv47nr2njbrutzqo12tndipsf",
+	  "https://dl.dropboxusercontent.com/scl/fi/o4jrwl8e12vi7lx5auwx0/vid02.mp4?rlkey=ftbxkm4sz64w04t9m0es7ljub",
+      "https://dl.dropboxusercontent.com/scl/fi/nygloq70jw0ee0ozimgiu/Simurg-26.jpeg?rlkey=wcqtdiftaknnqck1g4f3op3gg"
+    ];
+  let huidige = 0;
+
+  const lightboxImg = document.getElementById("lightbox-img");
+
+  function preloadImage(index) {
+    const img = new Image();
+    img.src = fotos[index];
+  }
+
+  function updateImage() {
+    lightboxImg.classList.remove('loaded');
+    lightboxImg.src = fotos[huidige];
+    lightboxImg.onload = function() {
+      lightboxImg.classList.add('loaded');
+
+      // Preload volgende en vorige
+      const volgende = (huidige + 1) % fotos.length;
+      const vorige = (huidige - 1 + fotos.length) % fotos.length;
+      preloadImage(volgende);
+      preloadImage(vorige);
+    };
+  }
+
+  function changeSlide(richting) {
+    huidige = (huidige + richting + fotos.length) % fotos.length;
+    updateImage();
+  }
+
+  document.getElementById("vorige-knop").addEventListener('click', function(e) {
+    e.preventDefault();
+    changeSlide(-1);
+  });
+
+  document.getElementById("volgende-knop").addEventListener('click', function(e) {
+    e.preventDefault();
+    changeSlide(1);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') changeSlide(-1);
+    if (e.key === 'ArrowRight') changeSlide(1);
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, {passive: true});
+
+  document.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) changeSlide(1);
+      else changeSlide(-1);
+    }
+  }, {passive: true});
+
+  updateImage();
+
+  const homeKnop = document.getElementById("home-knop");
+  const lang = params.get("lang") || "fr";
+  homeKnop.href = `indexneutraal.html?lang=${lang}`;
+</script>
+
+  
+  
+  
+  
+  <!-- oud script 
+  
   <script>
     const params = new URLSearchParams(window.location.search);
     const fotos = [
@@ -163,5 +266,9 @@
     const lang = params.get("lang") || "fr";
     homeKnop.href = `indexneutraal.html?lang=${lang}`;
   </script>
+  -->
+  
+  
+  
 </body>
 </html>
